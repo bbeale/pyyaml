@@ -290,6 +290,18 @@ def test_subclass_blacklist_types(data_filename, verbose=False):
 
 test_subclass_blacklist_types.unittest = ['.subclass_blacklist']
 
+def test_rce_mitigation(data_filename, verbose=False):
+    _make_objects()
+    try:
+        yaml.load(open(data_filename, 'rb').read(), MyFullLoader)
+    except yaml.YAMLError as exc:
+        if verbose:
+            print("%s:" % exc.__class__.__name__, exc)
+    else:
+        raise AssertionError("expected an exception")
+
+test_rce_mitigation.unittest = ['.rce_mitigation']
+
 if __name__ == '__main__':
     import sys, test_constructor
     sys.modules['test_constructor'] = sys.modules['__main__']

